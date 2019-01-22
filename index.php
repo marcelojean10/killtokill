@@ -1,14 +1,20 @@
 <?php
-	
-$variavel = (isset($data['path_game_min'])) ? ".js" : ".min.js";
-
 	$data = [
-		'title' 		 => 'Kill To Kill',
-		'path_phaser'    => 'assets/js/phaser.min.js',
-		'path_game'      => 'assets/js/game'.$variavel,
-		'path_game_min'  =>  'aa'
-
+		'title' 		 =>  'Kill To Kill',
+		'path_phaser'    =>  'assets/js/phaser.min.js',
+		'path_game_min'  =>  '',
+        'path_game'      =>  'assets/js/game'
 	];
+
+    
+    // versão do projeto minificada ou não.
+    if($data['path_game_min'] == ''){
+        $data['path_game_min'] = $data['path_game_min'] . '.js';    
+    }else{
+        $data['path_game_min'] = 'min.js';
+    }
+
+
 
 echo "<pre>";
 	print_r($data);
@@ -25,7 +31,7 @@ echo "</pre>";
         <script type="text/javascript" src="<?php echo $data['path_phaser']; ?>"></script>
     </head>
     <body>
-
+        <script type="text/javascript" src="<?php echo $data['path_game'].$data['path_game_min']; ?>"></script>
     </body>
-    <script type="text/javascript" src="<?php echo $data['path_game']; ?>"></script>
+    
 </html>
