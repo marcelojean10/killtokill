@@ -9,21 +9,22 @@
             fireButton,
             enemies,
             score = 0,
-            txtPressStart,
             scoreText,
             winText,
             endText,
             audioBullet,
-            counter = 0;
+            counter = 0,
+            pathImg = './assets/img/',
+            pathSound = './assets/audio/';
 
         var mainState = {
 
             preload:function(){
-                game.load.image('spacefield', "img-js/spacefield.jpg");
-                game.load.image('player', "img-js/player.png");
-                game.load.image('bullet', "img-js/bullet.png");
-                game.load.image('enemy',  "img-js/enemy.png");
-                game.load.audio('stars', "audio-js/stars.ogg");
+                game.load.image('spacefield', pathImg + "spacefield.jpg");
+                game.load.image('player', pathImg + "player.png");
+                game.load.image('bullet', pathImg + "bullet.png");
+                game.load.image('enemy',  pathImg + "enemy.png");
+                game.load.audio('stars', pathSound + "stars.ogg");
             },
 
             create:function(){
