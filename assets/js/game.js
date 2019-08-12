@@ -19,7 +19,7 @@
 
         var mainState = {
 
-            preload:function(){
+            preload:function() {
                 game.load.image('spacefield', pathImg + "spacefield.jpg");
                 game.load.image('player', pathImg + "player.png");
                 game.load.image('bullet', pathImg + "bullet.png");
@@ -27,7 +27,7 @@
                 game.load.audio('stars', pathSound + "stars.ogg");
             },
 
-            create:function(){
+            create:function() {
                 spacefield = game.add.tileSprite(0, 0, 800, 600,'spacefield');
                 backgroundv = 2;
 
@@ -68,29 +68,29 @@
 
             },
 
-            update:function(){
+            update:function() {
                 game.physics.arcade.overlap(bullets, enemies, collisionHandler,null,this);
 
                 player.body.velocity.x = 0;
                 player.body.velocity.y = 0;
                 spacefield.tilePosition.y += backgroundv;
 
-                if(cursors.left.isDown){
+                if(cursors.left.isDown) {
                     player.body.velocity.x -= 350;
                     
                 }
-                if(cursors.right.isDown){
+                if(cursors.right.isDown) {
                     player.body.velocity.x = 350;
                 }
 
 
-                if(fireButton.isDown){
+                if(fireButton.isDown) {
                     fireBullet();
                 }
 
                 scoreText.text = 'Score: '+ score;
 
-                if(score == 4000){
+                if(score == 4000) {
                     winText.visible = true;
                     scoreText.visible = false;
                     player.kill();
@@ -100,62 +100,62 @@
             },
     }
 
-function updateCounter() {
-    counter++;
-    if(counter == 15){
-        restart();
-    }
-}
-function fireBullet(){
-    if(game.time.now > bulletTime){
-        bullet = bullets.getFirstExists(false);
-
-        if(bullet){
-            bullet.reset(player.x + 14, player.y);
-            bullet.body.velocity.y -= 400;
-            bulletTime = game.time.now + 200;
+    function updateCounter() {
+        counter++;
+        if(counter == 15) {
+            restart();
         }
     }
-}
+    function fireBullet() {
+        if(game.time.now > bulletTime) {
+            bullet = bullets.getFirstExists(false);
 
-function createEnemies(){
-    for(var y = 0; y < 4; y++){
-        for(var x = 0; x < 10; x++){
-            var enemy = enemies.create(x*48, y*50, 'enemy');
-            enemy.anchor.setTo(0.5,0.5);
+            if(bullet ){
+                bullet.reset(player.x + 14, player.y);
+                bullet.body.velocity.y -= 400;
+                bulletTime = game.time.now + 200;
+            }
         }
     }
 
-    enemies.x = 100;
-    enemies.y = 50;
+    function createEnemies() {
+        for(var y = 0; y < 4; y++) {
+            for(var x = 0; x < 10; x++) {
+                var enemy = enemies.create(x*48, y*50, 'enemy');
+                enemy.anchor.setTo(0.5,0.5);
+            }
+        }
 
-    var tween = game.add.tween(enemies).to({x:200}, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+        enemies.x = 100;
+        enemies.y = 50;
 
-    tween.onLoop.add(descend, this);
-}
+        var tween = game.add.tween(enemies).to({x:200}, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+
+        tween.onLoop.add(descend, this);
+    }
 
 
-function descend(){
-    enemies.y += 10;
-}
+    function descend(){
+        enemies.y += 10;
+    }
 
-function collisionHandler(bullet, enemy){
-    bullet.kill();
-    enemy.kill();
+    function collisionHandler(bullet, enemy){
+        bullet.kill();
+        enemy.kill();
 
-    score += 100;
-}
+        score += 100;
+    }
 
-function restart () {
-    score = 0;
-    scoreText.visible = true;
-    winText.visible = false;
-    endText.visible = false;
+    function restart () {
+        score = 0;
+        scoreText.visible = true;
+        winText.visible = false;
+        endText.visible = false;
 
-    enemies.removeAll();
-    createEnemies();
-    player.revive();
-}
+        enemies.removeAll();
+        createEnemies();
+        player.revive();
+    }
 
     game.state.add('mainState', mainState);
     game.state.start('mainState');
