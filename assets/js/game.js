@@ -83,6 +83,15 @@
                     player.body.velocity.x = 350;
                 }
 
+                if(cursors.up.isDown) {
+                    player.body.velocity.y -= 350;
+
+                }
+
+                if(cursors.down.isDown) {
+                    player.body.velocity.y = 350;
+                }
+
 
                 if(fireButton.isDown) {
                     fireBullet();
